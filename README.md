@@ -1,5 +1,5 @@
 # Suku
-The sudoku library.
+The sudoku library - a war on 9x9 grids.
 
 ## Goal
 My aim in creating Suku is creating a ruby library for manipulating, generating and solving Sudoku games.
