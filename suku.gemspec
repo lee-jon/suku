@@ -15,5 +15,6 @@ Gem::Specification.new do |s|
 
   # Dependencies for development
   s.add_development_dependency "rspec"
+  s.add_development_dependency "cucumber"
   s.test_files  = Dir.glob("spec/**.*,rb")
 end

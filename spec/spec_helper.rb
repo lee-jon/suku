@@ -1,7 +1,4 @@
+$: << File.join(File.dirname(__FILE__), "/../lib")
+
 require 'rspec'
 require 'suku'
-
-RSpec.configure do |config|
-  config.color_enabled = true
-  config.formatter     = 'documentation'
-end

@@ -5,3 +5,6 @@ module Sudoku
   end
 
 end
+
+
+require 'suku/board'
