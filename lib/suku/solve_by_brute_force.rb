@@ -10,7 +10,7 @@ module Solvers
 
     while pos < blanks.size
       self.set(blanks[pos], (self.get(blanks[pos])+1))
-      if self.is_valid? == true
+      if self.valid? == true
         if self.get(blanks[pos]) > 9
           self.set(blanks[pos], 0)
           pos -= 1

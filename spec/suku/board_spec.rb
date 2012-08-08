@@ -92,6 +92,12 @@ module Sudoku
           @game.blanks.should have(45).blank_cells
         end
       end
+
+      describe "getting a list of possibilities from a board" do
+        it "returns an array of possible values" do
+          @game.allowed[0][1].should eq("137")
+        end
+      end
     end #of viewing the board
 
     context "validity and violations" do
