@@ -88,6 +88,24 @@ module Sudoku
       end # of each element
 
     end #of viewing the board
+    context "validity and violations" do
+      before(:each) do
+        valid_game = "009730526005020800608000047000009062040603080890500000260000108007010600951064200"
+        @game = Board.new valid_game
+      end
+
+      describe "when a valid board is in use" do
+        it "should return as valid" do
+          @game.should be_valid
+        end
+      end
+
+      describe "when a invalid cell is entered" do
+        it "should return the errors" do
+        pending()
+        end
+      end
+    end
 
   end # of Board
 end
