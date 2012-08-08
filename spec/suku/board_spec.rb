@@ -87,7 +87,13 @@ module Sudoku
         end
       end # of each element
 
+      describe "getting a list of blank cells from a board" do
+        it "returns a list of blank cells" do
+          @game.blanks.should have(45).blank_cells
+        end
+      end
     end #of viewing the board
+
     context "validity and violations" do
       before(:each) do
         valid_game = "009730526005020800608000047000009062040603080890500000260000108007010600951064200"

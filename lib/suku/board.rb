@@ -67,6 +67,19 @@ module Sudoku
       end
     end
 
+    def blanks
+      array_of_blank_cells = []
+      (0..8).each do |r|
+        (0..8).each do |c|
+          number = get [r,c]
+          if number == 0
+            array_of_blank_cells << [c,r]
+          end
+        end
+      end
+      return array_of_blank_cells
+    end
+
     #getting the entire board
     def stream
       @grid.join
