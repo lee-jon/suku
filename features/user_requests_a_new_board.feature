@@ -5,6 +5,7 @@ Feature: start a board at the command line
   So that I can access a board
 
   Scenario: start game board
+  :x
     Given the libraries are loaded
     When I request a new board
     Then a new blank board is generated
