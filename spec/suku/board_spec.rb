@@ -95,7 +95,7 @@ module Sudoku
 
       describe "getting a list of possibilities from a board" do
         it "returns an array of possible values" do
-          @game.allowed[0][1].should eq("137")
+          @game.allowed[0][1].should eql("137")
         end
       end
     end #of viewing the board
@@ -114,7 +114,8 @@ module Sudoku
 
       describe "when a invalid cell is entered" do
         it "should return the errors" do
-        pending()
+          @game.set [0,0], 9
+          @game.valid?.should include("In row 0, 9 appears 2")
         end
       end
     end
