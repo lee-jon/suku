@@ -1,17 +1,19 @@
 require File.join(File.dirname(__FILE__), "/../spec_helper")
 
 # Board class tests uses blank or sample board shown:
-  #  009 | 730 | 526
-  #  005 | 020 | 800
-  #  608 | 000 | 047
-  #  ----+-----+----
-  #  000 | 009 | 062
-  #  040 | 603 | 080
-  #  890 | 500 | 000
-  #  ----+-----+----
-  #  260 | 000 | 108
-  #  007 | 010 | 600
-  #  951 | 064 | 200
+  # x 012   345   678
+  #y
+  #0  009 | 730 | 526
+  #1  005 | 020 | 800
+  #2  608 | 000 | 047
+  #   ----+-----+----
+  #3  000 | 009 | 062
+  #4  040 | 603 | 080
+  #5  890 | 500 | 000
+  #   ----+-----+----
+  #6  260 | 000 | 108
+  #7  007 | 010 | 600
+  #8  951 | 064 | 200
 
 module Sudoku
   describe Board do
@@ -113,9 +115,14 @@ module Sudoku
       end
 
       describe "when a invalid cell is entered" do
-        it "should return the errors" do
+        before(:each) do
           @game.set [0,0], 9
-          @game.valid?.should include("In row 0, 9 appears 2")
+        end
+        it "should not be valid" do
+          @game.should_not be_valid
+        end
+        it "should return the errors" do
+          @game.violations.should include("In row 0, 9 appears 2")
         end
       end
     end
