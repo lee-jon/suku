@@ -97,7 +97,7 @@ module Sudoku
 
       describe "getting a list of possibilities from a board" do
         it "returns an array of possible values" do
-          @game.allowed[0][1].should eql("137")
+          @game.allowed[0][1].should eql("1")
         end
       end
     end #of viewing the board

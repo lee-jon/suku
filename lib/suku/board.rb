@@ -91,7 +91,7 @@ module Sudoku
           else
             startstring = "123456789"
             x = Array.new
-            x << row(c)
+            x << row(r)
             x << column(c)
             x << box([c,r])
             x = x.flatten.uniq
