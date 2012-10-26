@@ -1,5 +1,6 @@
 module Sudoku
   class Board
+
     def initialize(input=nil)
 
       if input.nil?
@@ -103,7 +104,6 @@ module Sudoku
       return allowed
     end
 
-    #getting the entire board
     def stream
       @grid.join
     end
@@ -128,41 +128,41 @@ module Sudoku
       end
     end
 
-
-  def violations
-    error_log = []
-    (0..8).each do |r|
-      test = self.row(r).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
-      test[0] = 1
-      test.each_key do |key|
-        if test[key] != 1
-          error_log << "In row #{r}, #{key} appears #{test[key]}"
+    def violations
+      error_log = []
+      (0..8).each do |r|
+        test = self.row(r).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
+        test[0] = 1
+        test.each_key do |key|
+          if test[key] != 1
+            error_log << "In row #{r}, #{key} appears #{test[key]}"
+          end
         end
       end
-    end
 
-    (0..8).each do |c|
-      test = self.column(c).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
-      test[0] = 1
-      test.each_key do |key|
-        if test[key] != 1
-          error_log << "In column #{c}, #{key} appears #{test[key]}"
+      (0..8).each do |c|
+        test = self.column(c).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
+        test[0] = 1
+        test.each_key do |key|
+          if test[key] != 1
+            error_log << "In column #{c}, #{key} appears #{test[key]}"
+          end
         end
       end
-    end
 
-    (0..8).each do |l|
-      test = self.box(l).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
-      test[0] = 1
-      test.each_key do |key|
-        if test[key] != 1
-          error_log << "In cell #{l}, #{key} appears #{test[key]}"
+      (0..8).each do |l|
+        test = self.box(l).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
+        test[0] = 1
+        test.each_key do |key|
+          if test[key] != 1
+            error_log << "In cell #{l}, #{key} appears #{test[key]}"
+          end
         end
       end
+
+      return error_log
     end
 
-    return error_log
-  end
 
     private
 
