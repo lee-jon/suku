@@ -15,9 +15,9 @@ module Sudoku
     end
 
     describe "should solve a simple sudoku with only singles" do
-      @game = Solve.new @logical
-      @game.complete
-      @board.stream.should eq(@sample_solution)
+      # @game = Solve.new @logical
+      # @game.complete
+      # @board.stream.should eq(@sample_solution)
     end
 
   end
