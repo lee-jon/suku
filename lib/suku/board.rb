@@ -9,7 +9,7 @@ module Sudoku
           @grid[i] = [0,0,0,0,0,0,0,0,0]
         end
 
-      else #convert an input string
+      elsif input.class == String
         raise ArgumentError.new("Invalid number of characters in String input") unless input.length == 81
         @grid = Array.new(9)
         x = []; input.each_char { |char| x << char.to_i }
@@ -20,6 +20,10 @@ module Sudoku
           end
           @grid[row] = temp_row
         end
+      end
+      
+      else
+        raise ArgumentError.new("Invalid input")
       end
     end
 

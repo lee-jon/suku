@@ -1,4 +1,5 @@
 *.gem
 *.SWP
 .bundle
+tags
 Gemfile.lock

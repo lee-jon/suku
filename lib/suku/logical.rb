@@ -1,10 +1,10 @@
 module Sudoku
   class Logical
-    # Each method returns a verbose array. THis can be passed to solve to
-    # set the cells from the response
+    # Each method returns a verbose array. This can be passed to solve to
+    # set the cells from the response.
     #
-    # response format is
-    # [ [[coords], value, type], [...], [...]]
+    # response format is always of the type
+    # [ [ [coords], solved value, type ], [...], [...]]
 
     def initialize input_board
       @board = input_board
@@ -17,7 +17,7 @@ module Sudoku
       end
     end
 
-    # finds cells where there is no other possibility that one number
+    # finds cells where there is no other possibility except one number
     def find_naked_single
       response = []
       (0..8).each do |r|
@@ -30,9 +30,10 @@ module Sudoku
       return response unless response.empty?
     end
 
+    # finds cells where there is are multiple possibilties, but only one number
+    # is possible
     def find_hidden_single
       response = []
-
       (0..8).each do |r|
         (0..8).each do |c|
 # NOT WORKING. Board is checking rows and columns instead of the allowed table!
