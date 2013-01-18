@@ -36,7 +36,12 @@ module Sudoku
       response = []
       (0..8).each do |r|
         (0..8).each do |c|
-# NOT WORKING. Board is checking rows and columns instead of the allowed table!
+        # NOT WORKING. 
+        # Board is checking rows and columns instead of the allowed table!
+        # OOPS
+        # REFACTOR: Remove the allowed table to a separate board
+        # REFACTOR: Allow non-sudoku boards of strings and arrays to reuse
+        #           The boards
           if @board.allowed[r][c].size != 1 && @board.allowed[r][c] != 0
             @board.allowed[r][c].scan(/./).each do |value|
               detection = false
@@ -48,10 +53,8 @@ module Sudoku
               end
             end
           end
-
         end
       end
-
       return response unless response.empty?
     end
 

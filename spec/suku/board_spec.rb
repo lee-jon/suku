@@ -38,6 +38,12 @@ module Sudoku
           lambda { Board.new("123") }.should raise_error(ArgumentError)
         end
       end
+      
+      describe "with a valid array input" do
+        it "should not create a game if the input isn't a [9][9] array" do
+          lambda { Board.new([1,[2,2]])}.should raise_error(ArgumentError)
+        end
+      end
     end
 
     context "viewing the board" do
