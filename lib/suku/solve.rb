@@ -1,14 +1,13 @@
 module Sudoku
   class Solve
-    def initialize (logical)
-      @game = logical
-      # currently this is wierd, but Solve could call new instances of
-      # Board and the logical algorithm
+    def initialize (board)
+      @starting_board = Board.new(board.stream)
+      @solution       = Board.new(board.stream)
     end
     
     def complete
-      until @game.find_naked_singles == nil
-        x = @game.find_naked_singles
+      until @game.find_naked_single == nil
+        x = @game.find_naked_single
         @game.solve(x)
       end
     end

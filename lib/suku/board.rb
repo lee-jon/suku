@@ -2,7 +2,6 @@ module Sudoku
   class Board
 
     def initialize(input=nil)
-
       if input.nil?
         self.generate_blank
         
@@ -17,16 +16,14 @@ module Sudoku
           end
           @grid[row] = temp_row
         end
+        
       elsif input.class == Array
         raise ArgumentError.new("Incorrect array size") unless input.size == 9
         @grid = input
+        
       else
         raise ArgumentError.new("Invalid input")
       end
-    end
-    
-    def generate
-      generate_blank
     end
     
     def generate_blank
@@ -36,7 +33,9 @@ module Sudoku
       end
     end
     
-    #Getting elements from a board
+    ################################################
+    # Getting elements from a board
+    #
     def get coords
       @grid[coords[1]][coords[0]]
     end
@@ -81,7 +80,9 @@ module Sudoku
       end
     end
 
-    # Methods which help Solve a board -- can put in another class later on to simplify board class.
+    ########
+    # Methods which help Solve a board 
+    #
     def blanks
       array_of_blank_cells = []
       (0..8).each do |r|

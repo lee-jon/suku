@@ -15,6 +15,6 @@ The nine boxes are given the index.
 the cells within those boxes are given the same index. Because of the use of arrays, a box can be called with the `.box(index)` method or by passing through the coordinates of a cell, which will find the correct box index using `.box(x,y)`
 
 ### Coordinates
-For cell manipluation (setting or getting) a pseudo-cartesian grid is used, with the origin as the top-left cell. The x axis is denoted 0..8 and the y axis similarly 0..8 (not in negatives!). Calling coordinates is in the opposite order to calling directly from the array
+For cell manipulation (setting or getting) a pseudo-cartesian grid is used, with the origin as the top-left cell. The x axis is denoted 0..8 and the y axis similarly 0..8 (not in negatives!). Calling coordinates is in the opposite order to calling directly from the array
 
 For example, in an array the last cell of the top row would be `array[0][8]` but in coordinates this would be cell(8,0).

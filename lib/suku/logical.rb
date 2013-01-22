@@ -2,12 +2,19 @@ module Sudoku
   class Logical
     # Each method returns a verbose array. This can be passed to solve to
     # set the cells from the response.
+    # 
+    # Three boards are used in calculating the solutions
+    # @board     => target board
+    # @reference => original for reference in solving
+    # @allowed   => board for manipulating allowed values
     #
     # response format is always of the type
     # [ [ [coords], solved value, type ], [...], [...]]
 
     def initialize input_board
-      @board = input_board
+      @board     = input_board
+      @reference = input_board.stream
+      @allowed   = Board.new(input_board.allowed)
     end
 
     # method solves cells based on the response from the detectors
@@ -15,6 +22,8 @@ module Sudoku
       cells.each_index do |i|
         @board.set cells[i][0], cells[i][1]
       end
+      
+      @allowed = Board.new(@board.allowed)
     end
 
     # finds cells where there is no other possibility except one number
@@ -22,8 +31,8 @@ module Sudoku
       response = []
       (0..8).each do |r|
         (0..8).each do |c|
-          if @board.allowed[r][c].size == 1 && @board.allowed[r][c] != 0
-            response << [[c,r], @board.allowed[r][c].to_i, "naked single"]
+          if @allowed.get([r, c]).size == 1 && @allowed.get([r, c]) != 0
+            response << [[r, c], @allowed.get([r, c]).to_i, "naked single"]
           end
         end
       end
@@ -36,18 +45,13 @@ module Sudoku
       response = []
       (0..8).each do |r|
         (0..8).each do |c|
-        # NOT WORKING. 
-        # Board is checking rows and columns instead of the allowed table!
-        # OOPS
-        # REFACTOR: Remove the allowed table to a separate board
-        # REFACTOR: Allow non-sudoku boards of strings and arrays to reuse
-        #           The boards
-          if @board.allowed[r][c].size != 1 && @board.allowed[r][c] != 0
-            @board.allowed[r][c].scan(/./).each do |value|
+          if @allowed.get([r, c]).size != 1 && @allowed.get([r,c]) != 0
+            @allowed.get([r, c]).scan(/./).each do |value|
               detection = false
-              detection = true if @board.row(r).count(value) == 1
-              detection = true if @board.column(c).count(value) == 1
-              detection = true if @board.box([r,c]).count(value) == 1
+              # TODO cast array to long string and count the numbers
+              detection = true if @allowed.row(r).to_s.count(value.to_s) == 1
+              detection = true if @allowed.column(c).to_s.count(value.to_s) == 1
+              detection = true if @allowed.box([r,c]).to_s.count(value.to_s) == 1
               if detection == true
                 response << [[c,r], value, "hidden single"]
               end

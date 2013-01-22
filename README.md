@@ -1,5 +1,5 @@
-# Suku
-The sudoku library - a war on 9x9 grids. 
+# Suku [![Gem Version](https://badge.fury.io/rb/suku.png)](http://badge.fury.io/rb/suku)
+The sudoku library - a war on 9x9 grids.
 
 by [Lee-Jon](https://github.com/lee-jon)
 

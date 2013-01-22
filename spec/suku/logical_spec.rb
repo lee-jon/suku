@@ -27,7 +27,6 @@ module Sudoku
     
     describe "find hidden single" do
       before(:each) do
-        @sample_board =  "000000000000200000000000000000060000000020000000080000000000000000002000"
         @board = Sudoku::Board.new
         @solution = Logical.new(@board)
       end
@@ -35,7 +34,11 @@ module Sudoku
         @solution.find_hidden_single.should be_nil
       end
       it "should find a hidden single when there is one" do
-        @board.set [4,4], 0
+        @board.set [1,3], 2
+        @board.set [2,6], 2
+        @board.set [3,1], 2
+        @board.set [6,2], 2
+        # Sets a hidden single of "2" on coordinate 0,0
         @solution.find_hidden.single.should_not be_empty
       end
     end
