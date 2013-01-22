@@ -8,5 +8,3 @@ end
 
 require 'suku/board'
 require 'suku/logical'
-#require 'suku/solve'
-#require 'suku/solve_by_brute_force'
