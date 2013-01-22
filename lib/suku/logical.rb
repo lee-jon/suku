@@ -2,7 +2,7 @@ module Sudoku
   class Logical
     # Each method returns a verbose array. This can be passed to solve to
     # set the cells from the response.
-    # 
+    #
     # Three boards are used in calculating the solutions
     # @board     => target board
     # @reference => original for reference in solving
@@ -22,12 +22,14 @@ module Sudoku
       cells.each_index do |i|
         @board.set cells[i][0], cells[i][1]
       end
-      
-      @allowed = Board.new(@board.allowed)
+
+      regenerate
     end
 
     # finds cells where there is no other possibility except one number
     def find_naked_single
+      regenerate
+
       response = []
       (0..8).each do |r|
         (0..8).each do |c|
@@ -42,6 +44,8 @@ module Sudoku
     # finds cells where there is are multiple possibilties, but only one number
     # is possible
     def find_hidden_single
+      regenerate
+
       response = []
       (0..8).each do |r|
         (0..8).each do |c|
@@ -62,5 +66,9 @@ module Sudoku
       return response unless response.empty?
     end
 
+    private
+     def regenerate
+       @allowed = Board.new(@board.allowed)
+     end
   end
 end
