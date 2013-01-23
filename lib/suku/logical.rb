@@ -26,7 +26,9 @@ module Sudoku
       regenerate
     end
 
-    # finds cells where there is no other possibility except one number
+    # Public: finds cells where there is no other possibility except one number
+    #
+    # Returns array of naked singles
     def find_naked_single
       regenerate
 
@@ -41,8 +43,10 @@ module Sudoku
       return response unless response.empty?
     end
 
-    # finds cells where there is are multiple possibilties, but only one number
-    # is possible
+    # Public: Looks for cell in a row, column or box where there is only one
+    # possibilty. See http://angusj.com/sudoku/hints.php - hidden single.
+    #
+    # Returns array of hidden singles
     def find_hidden_single
       regenerate
 
@@ -52,7 +56,6 @@ module Sudoku
           if @allowed.get([r, c]).size != 1 && @allowed.get([r,c]) != 0
             @allowed.get([r, c]).scan(/./).each do |value|
               detection = false
-              # TODO cast array to long string and count the numbers
               detection = true if @allowed.row(r).to_s.count(value.to_s) == 1
               detection = true if @allowed.column(c).to_s.count(value.to_s) == 1
               detection = true if @allowed.box([r,c]).to_s.count(value.to_s) == 1
@@ -60,6 +63,22 @@ module Sudoku
                 response << [[c,r], value, "hidden single"]
               end
             end
+          end
+        end
+      end
+      return response unless response.empty?
+    end
+
+    def find_naked_pair
+      response = []
+      (0..8).each do |i|
+        # in row i
+        array = @allowed.row (i)
+        array.delete(0)
+        # find the unique 2 letter codes
+        array.uniq.select { |cell| cell.length == 2 }.each do |pair|
+          if array.select { |cell| cell == pair }.size == 2
+            response << "#{i} row, has naked pair of #{pair}"
           end
         end
       end
