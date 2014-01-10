@@ -55,6 +55,41 @@ module Sudoku
 
       return error_log
     end
+    
+    def blanks
+      array_of_blank_cells = []
+      (0..8).each do |r|
+        (0..8).each do |c|
+          number = get [r,c]
+          if number == 0
+            array_of_blank_cells << [c,r]
+          end
+        end
+      end
+      return array_of_blank_cells
+    end
+
+    def allowed
+      allowed = Array.new
+      (0..8).each do |r|
+        allowed[r] = [0,0,0,0,0,0,0,0,0]
+        (0..8).each do |c|
+          if get([c,r]) != 0
+            allowed[r][c] = 0
+          else
+            startstring = "123456789"
+            x = Array.new
+            x << row(r)
+            x << column(c)
+            x << box([c,r])
+            x = x.flatten.uniq
+            x.each { |i| startstring.sub!(i.to_s, '') }
+            allowed[r][c] = startstring
+          end
+        end
+      end
+      return allowed
+    end
   
   end
 end

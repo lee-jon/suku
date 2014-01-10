@@ -78,8 +78,6 @@ module Sudoku
       end
     end
 
-
-
     private
 
     def boxes
