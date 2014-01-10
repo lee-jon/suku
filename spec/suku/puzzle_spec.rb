@@ -52,14 +52,12 @@ module Sudoku
     context "additional board manipulations" do
       describe "getting a list of blank cells from a board" do
         it "returns a list of blank cells" do
-          pending()
           @game.blanks.should have(45).blank_cells
         end
       end
 
       describe "getting a list of possibilities from a board" do
         it "returns an array of possible values" do
-          pending()
           @game.allowed[0][1].should eql("1")
         end
       end
