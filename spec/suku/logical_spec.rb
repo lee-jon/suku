@@ -34,11 +34,12 @@ module Sudoku
         @solution.find_hidden_single.should be_nil
       end
       it "should find a hidden single when there is one" do
+        # Set a hidden single of "2" on coordinate 0,0
         @board.set [1,3], 2
         @board.set [2,6], 2
         @board.set [3,1], 2
         @board.set [6,2], 2
-        # Sets a hidden single of "2" on coordinate 0,0
+
         @solution.find_hidden_single.should_not be_empty
       end
     end
@@ -56,7 +57,7 @@ module Sudoku
         @board    = Sudoku::Puzzle.new(string)
         @solution = Logical.new(@board)
 
-        @soution.find_naked_pair.should_not be_empty
+        @solution.find_naked_pair.should_not be_empty
       end
     end
 

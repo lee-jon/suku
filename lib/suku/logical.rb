@@ -4,7 +4,7 @@ module Sudoku
     # set the cells from the response.
     #
     # Three boards are used in calculating the solutions
-    # @board     => target board
+    # @board     => target puzzle
     # @reference => original for reference in solving
     # @allowed   => board for manipulating allowed values
     #
