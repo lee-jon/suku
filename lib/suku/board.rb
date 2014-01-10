@@ -3,10 +3,11 @@ module Sudoku
 
     def initialize(input=nil)
       if input.nil?
-        self.generate_blank
-        
+        generate_blank
+
       elsif input.class == String
         raise ArgumentError.new("Invalid number of characters in String input") unless input.length == 81
+
         @grid = Array.new(9)
         x = []; input.each_char { |char| x << char.to_i }
         (0..8).each do |row|
@@ -16,24 +17,28 @@ module Sudoku
           end
           @grid[row] = temp_row
         end
-        
+
       elsif input.class == Array
         raise ArgumentError.new("Incorrect array size") unless input.size == 9
         @grid = input
-        
+
       else
         raise ArgumentError.new("Invalid input")
       end
     end
-        
+
     ################################################
     # Getting elements from a board
     #
-    def get coords
+    def stream
+      @grid.join
+    end
+    
+    def get(coords)
       @grid[coords[1]][coords[0]]
     end
 
-    def set (coords, value)
+    def set(coords, value)
       @grid[coords[1]][coords[0]] = value
     end
 
@@ -74,11 +79,6 @@ module Sudoku
     end
 
 
-    def stream
-      @grid.join
-    end
-
-
 
     private
 
@@ -102,6 +102,6 @@ module Sudoku
         @grid[i] = [0,0,0,0,0,0,0,0,0]
       end
     end
-    
+
   end
 end

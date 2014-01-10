@@ -7,4 +7,5 @@ module Sudoku
 end
 
 require 'suku/board'
+require 'suku/puzzle'
 require 'suku/logical'

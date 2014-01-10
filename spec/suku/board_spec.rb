@@ -38,7 +38,7 @@ module Sudoku
           lambda { Board.new("123") }.should raise_error(ArgumentError)
         end
       end
-      
+
       describe "with a valid array input" do
         it "should not create a game if the input isn't a [9][9] array" do
           lambda { Board.new([1,[2,2]])}.should raise_error(ArgumentError)
@@ -46,7 +46,7 @@ module Sudoku
       end
     end
 
-    context "viewing the board" do
+    context "viewing a board" do
       before(:each) do
         @sample_board = "009730526005020800608000047000009062040603080890500000260000108007010600951064200"
         @game = Board.new @sample_board
@@ -56,17 +56,6 @@ module Sudoku
         it "should output a string of 81 characters" do
           @game.should respond_to(:stream)
           @game.stream.should have(81).characters
-        end
-      end
-
-      describe "by requesting a board view" do
-        it "should output a board" do
-          @game.should respond_to(:show)
-        end
-        it "should resemble a board" do
-          output = @game.show
-          output.should have(242).characters
-          output.should include("|")
         end
       end
 
@@ -95,43 +84,7 @@ module Sudoku
         end
       end # of each element
 
-      describe "getting a list of blank cells from a board" do
-        it "returns a list of blank cells" do
-          @game.blanks.should have(45).blank_cells
-        end
-      end
-
-      describe "getting a list of possibilities from a board" do
-        it "returns an array of possible values" do
-          @game.allowed[0][1].should eql("1")
-        end
-      end
     end #of viewing the board
-
-    context "validity and violations" do
-      before(:each) do
-        valid_game = "009730526005020800608000047000009062040603080890500000260000108007010600951064200"
-        @game = Board.new valid_game
-      end
-
-      describe "when a valid board is in use" do
-        it "should return as valid" do
-          @game.should be_valid
-        end
-      end
-
-      describe "when a invalid cell is entered" do
-        before(:each) do
-          @game.set [0,0], 9
-        end
-        it "should not be valid" do
-          @game.should_not be_valid
-        end
-        it "should return the errors" do
-          @game.violations.should include("In row 0, 9 appears 2")
-        end
-      end
-    end
 
   end # of Board
 end

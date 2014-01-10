@@ -7,7 +7,7 @@ module Sudoku
 
     describe "find naked single" do
       before(:each) do
-        @board = Sudoku::Board.new ("123456789" + ("000000000"*8))
+        @board = Sudoku::Puzzle.new ("123456789" + ("000000000"*8))
         @solution = Logical.new (@board)
       end
       it "should not find any in a blank board" do
@@ -27,7 +27,7 @@ module Sudoku
 
     describe "find hidden single" do
       before(:each) do
-        @board = Sudoku::Board.new
+        @board = Sudoku::Puzzle.new
         @solution = Logical.new(@board)
       end
       it "should not find any hidden singles" do
@@ -45,7 +45,7 @@ module Sudoku
 
     describe "find naked pair" do
       before (:each) do
-        @board = Sudoku::Board.new
+        @board = Sudoku::Puzzle.new
         @solution = Logical.new(@board)
       end
       it "should not find any naked pairs" do
@@ -53,7 +53,7 @@ module Sudoku
       end
       it "should find a naked pair when there is one" do
         string = "023456009" + "700000110" + "000000000" * 7
-        @board    = Sudoku::Board.new(string)
+        @board    = Sudoku::Puzzle.new(string)
         @solution = Logical.new(@board)
 
         @soution.find_naked_pair.should_not be_empty
