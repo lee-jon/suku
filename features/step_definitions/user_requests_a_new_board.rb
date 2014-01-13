@@ -18,6 +18,6 @@ Then /^a new blank board is generated$/ do
   @game.stream.should include("0"*81)
 end
 
-Then /^the board's cells are filled with my input$/ do
+Then /^the boards cells are filled with my input$/ do
   @game.stream.should include("123456789"*9)
 end

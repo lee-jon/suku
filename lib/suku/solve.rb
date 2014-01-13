@@ -1,8 +1,8 @@
 module Sudoku
   class Solve
     def initialize (board)
-      @starting_board = Board.new(board.stream)
-      @solution       = Board.new(board.stream)
+      @starting_board = Puzzle.new(board.stream)
+      @solution       = Puzzle.new(board.stream)
     end
     
     def complete

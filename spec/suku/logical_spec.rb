@@ -1,7 +1,5 @@
 require File.join(File.dirname(__FILE__), "/../spec_helper")
 
-# Logical module contains logic solvers which interact with the Board class
-
 module Sudoku
   describe Logical do
 
@@ -46,12 +44,14 @@ module Sudoku
 
     describe "find naked pair" do
       before (:each) do
-        @board = Sudoku::Puzzle.new
+        @board    = Sudoku::Puzzle.new
         @solution = Logical.new(@board)
       end
+
       it "should not find any naked pairs" do
         @solution.find_naked_pair.should be_nil
       end
+
       it "should find a naked pair when there is one" do
         string = "023456009" + "700000110" + "000000000" * 7
         @board    = Sudoku::Puzzle.new(string)

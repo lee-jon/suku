@@ -1,6 +1,6 @@
 Given /^a game is in progress$/ do
   @puzzle = Sudoku::Board.new "009730526005020800608000047000009062040603080890500000260000108007010600951064200"
-  @solution = Sudoku::Board.new @puzzle.stream
+  @solution = Sudoku::Puzzle.new @puzzle.stream
 end
 
 When /^I request a cell$/ do

@@ -68,7 +68,10 @@ module Sudoku
       end
       return response unless response.empty?
     end
-
+    
+    # Public: Looks in each row for a naked pair
+    #
+    # Returns array of naked pairs
     def find_naked_pair
       response = []
       (0..8).each do |i|
