@@ -2,20 +2,19 @@ require File.join(File.dirname(__FILE__), "/../spec_helper")
 
 module Sudoku
   describe Puzzle do
-    
     before(:each) do
-      valid_game =  "009730526" +
-                    "005020800" + 
-                    "608000047" + 
-                    "000009062" + 
-                    "040603080" + 
-                    "890500000" + 
-                    "260000108" + 
-                    "007010600" + 
+      valid_game =  "009730526" \
+                    "005020800" \
+                    "608000047" \
+                    "000009062" \
+                    "040603080" \
+                    "890500000" \
+                    "260000108" \
+                    "007010600" \
                     "951064200"
       @game = Puzzle.new valid_game
     end
-    
+
     context "viewing a puzzle board" do
       describe "by requesting a boards view" do
         it "should output that board" do
@@ -38,7 +37,7 @@ module Sudoku
 
       describe "when a invalid cell is entered" do
         before(:each) do
-          @game.set [0,0], 9
+          @game.set [0, 0], 9
         end
         it "should not be valid" do
           @game.should_not be_valid
@@ -47,8 +46,8 @@ module Sudoku
           @game.violations.should include("In row 0, 9 appears 2")
         end
       end
-    end #of validity and violations
-    
+    end # of validity and violations
+
     context "additional board manipulations" do
       describe "getting a list of blank cells from a board" do
         it "returns a list of blank cells" do
@@ -62,7 +61,5 @@ module Sudoku
         end
       end
     end # of additional board manipulations
-
-
   end # of Puzzle
 end # of Module Sudoku

@@ -1,11 +1,7 @@
 module Sudoku
-
-  unless const_defined?(:VERSION)
-    VERSION = '0.2.0'
-  end
-
+  VERSION = "0.2.1".freeze unless const_defined?(:VERSION)
 end
 
-require 'suku/board'
-require 'suku/puzzle'
-require 'suku/logical'
+require "suku/board"
+# require 'suku/puzzle'
+# require 'suku/logical'

@@ -10,14 +10,13 @@ When /^I request a new board$/ do
 end
 
 When /^I request a board with a input of cells$/ do
-  @game = Sudoku::Board.new("123456789"*9)
-
+  @game = Sudoku::Board.new("123456789" * 9)
 end
 
 Then /^a new blank board is generated$/ do
-  @game.stream.should include("0"*81)
+  @game.stream.should include("0" * 81)
 end
 
 Then /^the boards cells are filled with my input$/ do
-  @game.stream.should include("123456789"*9)
+  @game.stream.should include("123456789" * 9)
 end

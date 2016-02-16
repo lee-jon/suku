@@ -1,105 +1,54 @@
-module Sudoku
-  class Board
+class Board
+  attr_reader :rows, :digits, :columns, :squares,
+              :unit_list, :units, :peers
 
-    def initialize(input=nil)
-      if input.nil?
-        generate_blank
+  def initialize
+    @rows      = "ABCDEFGHI"
+    @digits    = "123456789"
+    @columns   = @digits
+    @squares   = cross(@rows, @columns)
+    @unit_list = create_unit_list
+    @units     = create_units
+    @peers     = create_peers
+  end
 
-      elsif input.class == String
-        raise ArgumentError.new("Invalid number of characters in String input") unless input.length == 81
+  protected
 
-        @grid = Array.new(9)
-        x = []; input.each_char { |char| x << char.to_i }
-        (0..8).each do |row|
-          temp_row = []
-          (0..8).each do |col|
-            temp_row[col] = x.shift
-          end
-          @grid[row] = temp_row
-        end
+  def create_unit_list
+    column_units + row_units + box_units
+  end
 
-      elsif input.class == Array
-        raise ArgumentError.new("Incorrect array size") unless input.size == 9
-        @grid = input
+  def column_units
+    columns.split("").map { |c| cross(rows, c) }
+  end
 
-      else
-        raise ArgumentError.new("Invalid input")
+  def row_units
+    rows.split("").map { |r| cross(r, columns) }
+  end
+
+  def box_units
+    ["ABC", "DEF", "GHI"].product(["123", "456", "789"]).map do |i|
+      cross(i[0], i[1])
+    end
+  end
+
+  def create_units
+    squares.reduce({}) do |units, key|
+      units[key] = unit_list.reduce([]) do |value, list|
+        value << list if list.include? key
+        value
       end
+      units
     end
+  end
 
-    ################################################
-    # Getting elements from a board
-    #
-    def stream
-      @grid.join
+  def create_peers
+    squares.reduce({}) do |peers, key|
+      peers.merge( { key => (units[key].flatten.uniq - [key]) } )
     end
-    
-    def get(coords)
-      @grid[coords[1]][coords[0]]
-    end
+  end
 
-    def set(coords, value)
-      @grid[coords[1]][coords[0]] = value
-    end
-
-    def row(index)
-      @grid[index]
-    end
-
-    def column(index)
-      column = []
-      (0..8).each do |i|
-         column << @grid[i][index]
-      end
-      return column
-    end
-
-    def box(index)
-      if index.class == Fixnum
-        return boxes[index]
-      elsif index.class == Array
-        x = index[0]
-        y = index[1]
-        if x < 3
-          calculated = 0
-        elsif x < 6
-          calculated = 1
-        else
-          calculated = 2
-        end
-        if y < 3
-          calculated += 0
-        elsif y < 6
-          calculated += 3
-        else
-          calculated += 6
-        end
-        return boxes[calculated]
-      end
-    end
-
-    private
-
-    def boxes
-      corner = [0,3,6]
-      cell_view = []
-      cell_index = 0
-
-      corner.each do |r|
-        corner.each do |c|
-          cell_view[cell_index] = [@grid[r][c],@grid[r][c+1],@grid[r][c+2],@grid[r+1][c],@grid[r+1][c+1],@grid[r+1][c+2],@grid[r+2][c],@grid[r+2][c+1],@grid[r+2][c+2] ]
-          cell_index += 1
-        end
-      end
-      return cell_view
-    end
-
-    def generate_blank
-      @grid = Array.new
-      (0..8).each do |i|
-        @grid[i] = [0,0,0,0,0,0,0,0,0]
-      end
-    end
-
+  def cross(a,b)
+    a.split("").product(b.split("")).map { |i| i[0] + i[1] }
   end
 end

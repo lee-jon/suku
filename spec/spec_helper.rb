@@ -1,4 +1,4 @@
-$: << File.join(File.dirname(__FILE__), "/../lib")
+$LOAD_PATH << File.join(File.dirname(__FILE__), "/../lib")
 
-require 'rspec'
-require 'suku'
+require "rspec"
+require "suku"

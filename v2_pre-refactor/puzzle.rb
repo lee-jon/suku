@@ -1,16 +1,13 @@
 module Sudoku
   class Puzzle < Board
-
     def show
       response = ""
       (0..8).each do |i|
-        response += "#{@grid[i][0]} #{@grid[i][1]} #{@grid[i][2]} | #{@grid[i][3]} #{@grid[i][4]} #{@grid[i][5]} | #{@grid[i][6]} #{@grid[i][7]} #{@grid[i][8]}\n".gsub("0", ".")
-        if i == 2 || i == 5
-          response += "------+-------+------\n"
-        end
+        response += "#{@grid[i][0]} #{@grid[i][1]} #{@grid[i][2]} | #{@grid[i][3]} #{@grid[i][4]} #{@grid[i][5]} | #{@grid[i][6]} #{@grid[i][7]} #{@grid[i][8]}\n".tr("0", ".")
+        response += "------+-------+------\n" if i == 2 || i == 5
       end
 
-      return response
+      response
     end
 
     def valid?
@@ -24,7 +21,7 @@ module Sudoku
     def violations
       error_log = []
       (0..8).each do |r|
-        test = self.row(r).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
+        test = row(r).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
         test[0] = 1
         test.each_key do |key|
           if test[key] != 1
@@ -34,7 +31,7 @@ module Sudoku
       end
 
       (0..8).each do |c|
-        test = self.column(c).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
+        test = column(c).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
         test[0] = 1
         test.each_key do |key|
           if test[key] != 1
@@ -44,7 +41,7 @@ module Sudoku
       end
 
       (0..8).each do |l|
-        test = self.box(l).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
+        test = box(l).inject(Hash.new(0)) { |h, i| h[i] += 1; h }
         test[0] = 1
         test.each_key do |key|
           if test[key] != 1
@@ -53,43 +50,40 @@ module Sudoku
         end
       end
 
-      return error_log
+      error_log
     end
-    
+
     def blanks
       array_of_blank_cells = []
       (0..8).each do |r|
         (0..8).each do |c|
-          number = get [r,c]
-          if number == 0
-            array_of_blank_cells << [c,r]
-          end
+          number = get [r, c]
+          array_of_blank_cells << [c, r] if number == 0
         end
       end
-      return array_of_blank_cells
+      array_of_blank_cells
     end
 
     def allowed
-      allowed = Array.new
+      allowed = []
       (0..8).each do |r|
-        allowed[r] = [0,0,0,0,0,0,0,0,0]
+        allowed[r] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         (0..8).each do |c|
-          if get([c,r]) != 0
+          if get([c, r]) != 0
             allowed[r][c] = 0
           else
             startstring = "123456789"
-            x = Array.new
+            x = []
             x << row(r)
             x << column(c)
-            x << box([c,r])
+            x << box([c, r])
             x = x.flatten.uniq
-            x.each { |i| startstring.sub!(i.to_s, '') }
+            x.each { |i| startstring.sub!(i.to_s, "") }
             allowed[r][c] = startstring
           end
         end
       end
-      return allowed
+      allowed
     end
-  
   end
 end

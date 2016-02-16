@@ -4,24 +4,21 @@ Given /^a game is in progress$/ do
 end
 
 When /^I request a cell$/ do
-  @request1 = @solution.get [2,0]
+  @request1 = @solution.get [2, 0]
 end
 
 Then /^I am given the value at that cell$/ do
   @request1.should eq(9)
 end
 
-
 When /^I pick a number$/ do
-  @cell = [0,0]
+  @cell = [0, 0]
   @decision = 1
 end
 
 When /^That number is not one from the original puzzle$/ do
   if @solution.get(@cell) == @puzzle.get(@cell)
-    if @puzzle.get(@cell) == 0
-      @solution.set(@cell,@decision)
-    end
+    @solution.set(@cell, @decision) if @puzzle.get(@cell) == 0
   end
 end
 

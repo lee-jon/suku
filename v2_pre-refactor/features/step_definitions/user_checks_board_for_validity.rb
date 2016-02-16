@@ -4,7 +4,7 @@ Given /^a valid puzzle is active$/ do
 end
 
 When /^I enter (\d+) in the cell at \[(\d+),(\d+)\]$/ do |value, x, y|
-  @puzzle.set [x.to_i,y.to_i], value.to_i
+  @puzzle.set [x.to_i, y.to_i], value.to_i
 end
 
 Then /^the validity response should be true$/ do

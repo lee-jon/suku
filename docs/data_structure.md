@@ -18,3 +18,28 @@ the cells within those boxes are given the same index. Because of the use of arr
 For cell manipulation (setting or getting) a pseudo-cartesian grid is used, with the origin as the top-left cell. The x axis is denoted 0..8 and the y axis similarly 0..8 (not in negatives!). Calling coordinates is in the opposite order to calling directly from the array
 
 For example, in an array the last cell of the top row would be `array[0][8]` but in coordinates this would be cell(8,0).
+
+
+# Data Structure
+
+## Board Structure
+The board is arranged in a array of 9 arrays. Each array having 9 postions. Positions can be accessed by reading the whole array, a row, a column or a box (box numbers shown in the centre of the 3x3 grids). In standard with the Sudoku solving community a board can be shown as:
+
+```
+  -------------
+A |...|...|...|
+B |...|...|...|
+C |...|...|...|
+  +---+---+---+
+D |...|...|...|
+E |...|...|...|
+F |...|...|...|
+  +---+---+---+
+G |...|...|...|
+H |...|...|...|
+I |...|...|...|
+  -------------
+   123 456 789
+```
+
+Each point in represented in a 2D array

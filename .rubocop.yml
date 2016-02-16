@@ -1,0 +1,11 @@
+inherit_from: .rubocop_todo.yml
+
+Rails:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  Enabled: true
+Metrics/LineLength:
+  Max: 99
+Documentation:
+  Enabled: false
