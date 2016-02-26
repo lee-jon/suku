@@ -30,12 +30,15 @@ RSpec.describe Board do
 
     describe "square C2" do
       let(:square) { "C2" }
-      let(:c2_peers) { ['A2', 'B2', 'D2', 'E2', 'F2', 'G2', 'H2', 'I2',
-                        'C1', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9',
-                        'A1', 'A3', 'B1', 'B3'] }
-      let(:c2_units) { [['A2', 'B2', 'C2', 'D2', 'E2', 'F2', 'G2', 'H2', 'I2'],
-                        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9'],
-                        ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3']]}
+      let(:c2_peers) do
+        %w(A2 B2 D2 E2 F2 G2 H2 I2 C1 C3
+           C4 C5 C6 C7 C8 C9 A1 A3 B1 B3)
+      end
+      let(:c2_units) do
+        [%w(A2 B2 C2 D2 E2 F2 G2 H2 I2),
+         %w(C1 C2 C3 C4 C5 C6 C7 C8 C9),
+         %w(A1 A2 A3 B1 B2 B3 C1 C2 C3)]
+      end
 
       it "should match the peers" do
         expect(subject.peers[square]).to eq c2_peers

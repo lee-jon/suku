@@ -1,6 +1,7 @@
 class Board
-  attr_reader :rows, :digits, :columns, :squares,
-              :unit_list, :units, :peers
+  attr_reader :rows, :digits, :columns,
+              :unit_list, :units, :peers,
+              :squares, :grid, :values
 
   def initialize
     @rows      = "ABCDEFGHI"
@@ -10,6 +11,7 @@ class Board
     @unit_list = create_unit_list
     @units     = create_units
     @peers     = create_peers
+    @values    = {}
   end
 
   protected
@@ -27,28 +29,30 @@ class Board
   end
 
   def box_units
-    ["ABC", "DEF", "GHI"].product(["123", "456", "789"]).map do |i|
+    %w(ABC DEF GHI).product(%w(123 456 789)).map do |i|
       cross(i[0], i[1])
     end
   end
 
   def create_units
-    squares.reduce({}) do |units, key|
-      units[key] = unit_list.reduce([]) do |value, list|
-        value << list if list.include? key
-        value
-      end
-      units
+    squares.each_with_object({}) do |key, units|
+      units[key] = unit_list_select(key)
+    end
+  end
+
+  def unit_list_select(key)
+    unit_list.each_with_object([]) do |list, value|
+      value << list if list.include? key
     end
   end
 
   def create_peers
     squares.reduce({}) do |peers, key|
-      peers.merge( { key => (units[key].flatten.uniq - [key]) } )
+      peers.merge(key => (units[key].flatten.uniq - [key]))
     end
   end
 
-  def cross(a,b)
+  def cross(a, b)
     a.split("").product(b.split("")).map { |i| i[0] + i[1] }
   end
 end
